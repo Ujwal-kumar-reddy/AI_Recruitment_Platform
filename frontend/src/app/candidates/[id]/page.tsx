@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { api, CandidateDetail } from "@/lib/api";
+import { useToast } from "@/context/toast-context";
 import { formatScore, getScoreColor } from "@/lib/utils";
 
 export default function CandidateProfilePage() {
@@ -19,9 +20,10 @@ export default function CandidateProfilePage() {
   const id = params.id as string;
   const [candidate, setCandidate] = useState<CandidateDetail | null>(null);
   const [loadingQuestions, setLoadingQuestions] = useState(false);
+  const { addToast } = useToast();
 
   useEffect(() => {
-    api.getCandidate(id).then(setCandidate).catch(() => {});
+    api.getCandidate(id).then(setCandidate).catch(() => addToast("Failed to load candidate profile.", "error"));
   }, [id]);
 
   const handleGenerateQuestions = async () => {
@@ -31,7 +33,7 @@ export default function CandidateProfilePage() {
       const updated = await api.getCandidate(id);
       setCandidate(updated);
     } catch {
-      /* ignore */
+      addToast("Failed to generate interview questions.", "error");
     }
     setLoadingQuestions(false);
   };
@@ -46,7 +48,7 @@ export default function CandidateProfilePage() {
       a.click();
       URL.revokeObjectURL(url);
     } catch {
-      alert("Failed to download report");
+      addToast("Failed to download report.", "error");
     }
   };
 
