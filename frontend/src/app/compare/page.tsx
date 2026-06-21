@@ -27,7 +27,7 @@ export default function ComparePage() {
     api.listCandidates({ job_description_id: activeJDId, page_size: 50, sort_by: "score", sort_order: "desc" })
       .then((res) => setCandidates(res.items))
       .catch(() => addToast("Failed to load candidates.", "error"));
-  }, [activeJDId]);
+  }, [activeJDId, addToast]);
 
   const toggleSelect = (id: string) => {
     setSelected((prev) => {

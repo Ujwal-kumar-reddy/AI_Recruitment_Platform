@@ -24,7 +24,7 @@ export default function CandidateProfilePage() {
 
   useEffect(() => {
     api.getCandidate(id).then(setCandidate).catch(() => addToast("Failed to load candidate profile.", "error"));
-  }, [id]);
+  }, [id, addToast]);
 
   const handleGenerateQuestions = async () => {
     setLoadingQuestions(true);

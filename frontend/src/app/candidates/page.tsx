@@ -46,7 +46,7 @@ export default function CandidatesPage() {
     } catch {
       addToast("Failed to load candidates. Check backend connection.", "error");
     }
-  }, [activeJDId, search, hiddenGemsOnly, minScore, minExperience, maxExperience, requiredSkills, sortBy, page]);
+  }, [activeJDId, search, hiddenGemsOnly, minScore, minExperience, maxExperience, requiredSkills, sortBy, page, addToast]);
 
   useEffect(() => {
     fetchCandidates();
